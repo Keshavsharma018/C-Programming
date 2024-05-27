@@ -3,7 +3,7 @@
 void main()
 {
 int m;
-printf("enter no. n=");
+printf("enter no. m=");
 scanf("%d",&m);
 {
 if(m%2==0)
