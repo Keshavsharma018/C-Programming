@@ -1,0 +1,12 @@
+#include<conio.h>
+#include<stdio.h>
+void main()
+{
+    clrscr();
+    float P,R,T,S;
+    printf("enter values of P,R,T=");
+    scanf("%f%f%f",&P,&R,&T);
+    S=P*R*T/100;
+    printf("simple interest=%f",S);
+    getch();
+}
