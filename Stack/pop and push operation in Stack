@@ -1,0 +1,76 @@
+#include<stdio.h>
+#include<stdlib.h>
+
+
+struct stack{
+    int size;
+    int top;
+    int*arr;
+};
+int isEmpty(struct stack*ptr){
+    
+    return (ptr->top==-1);
+}
+int isFull(struct stack*ptr){
+    
+    return (ptr->top==ptr->size-1);
+    
+}
+void push(struct stack*ptr,int val){
+    if(isFull(ptr)){
+        printf("Stack Overflow\n",val);
+    }
+    else{
+        ptr->top++;
+        ptr->arr[ptr->top]=val;
+        printf("Pushed %d into the stack\n",val);
+    }
+}
+int pop(struct stack*ptr){
+    if(isEmpty(ptr)){
+        printf("Stack Underflow");
+        return -1;
+    }
+    else{
+        int val=ptr->arr[ptr->top];
+        ptr->top--;
+        printf("Popped %d out of the stack\n",val);
+        return val;
+    }
+}
+
+void printStack(struct stack*ptr){
+    if(ptr->top==-1){
+        printf("stack is empty\n");
+    }
+    else{
+        printf("Remaining items in the stack are :\n");
+        for(int i=ptr->top;i>=0;i--){
+            printf("%d",ptr->arr[i]);
+        }
+        printf("\n");
+    }
+}
+int main(){
+    struct stack*sp =(struct stack*)malloc(sizeof(struct stack));
+    sp->size=10;
+    sp->top=-1;
+    sp->arr=(int*)malloc(sp->size*sizeof(int));
+    
+    printf("Stack has been created successfully");
+    
+    
+    push(sp,20);
+    push(sp,30);
+    push(sp,40);
+    
+    pop(sp);
+    pop(sp);
+    
+    push(sp,40);
+    pop(sp);
+    
+    printStack(sp);
+    
+    return 0;
+}
