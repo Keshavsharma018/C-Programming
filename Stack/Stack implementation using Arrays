@@ -1,54 +1,69 @@
-#include<stdio.h>
-#include<stdlib.h>
+#include <stdio.h>
+#include <stdlib.h>
 
-
-struct stack{
-    int size;
-    int top;
-    int*arr;
+struct Node {
+    int data;
+    struct Node* next;
 };
-int isEmpty(struct stack*ptr){
-    if(ptr->top==-1){
-        return 1;
+
+void linkedlistTraversal(struct Node* ptr) {
+    while (ptr != NULL) {
+        printf("Element: %d\n", ptr->data);
+        ptr = ptr->next;
     }
-    else{
+}
+
+int isEmpty(struct Node* top) {
+    return top == NULL;
+}
+
+int isFull(struct Node* top) {
+    struct Node* p = (struct Node*)malloc(sizeof(struct Node));
+    if (p == NULL) {
+        return 1;
+    } else {
+        free(p);
         return 0;
     }
 }
-int isFull(struct stack*ptr){
-    if(ptr->top==ptr->size-1){
-        return 1;
+
+struct Node* push(struct Node* top, int x) {
+    if (isFull(top)) {
+        printf("Stack Overflow\n");
+    } else {
+        struct Node* p = (struct Node*)malloc(sizeof(struct Node));
+        p->data = x;
+        p->next = top;
+        top = p;
     }
-    else{
-        return 0;
+    return top;
+}
+
+struct Node* pop(struct Node* top, int* poppedValue) {
+    if (isEmpty(top)) {
+        printf("Stack Underflow\n");
+        return NULL;
+    } else {
+        struct Node* p = top;
+        *poppedValue = p->data;
+        top = top->next;
+        free(p);
+        return top;
     }
 }
-void push(struct stack*ptr,int val){
-    if(isFull(ptr)){
-        printf("Stack Overflow");
-    }
-    else{
-        ptr->top++;
-        ptr->arr[ptr->top]=val;
-    }
-}
-int pop(struct stack*ptr){
-    if(isEmpty(ptr)){
-        printf("Stack Underflow");
-        return -1;
-    }
-    else{
-        int val=ptr->arr[ptr->top];
-        ptr->top--;
-        return val;
-    }
-}
-int main(){
-    struct stack*sp =(struct stack*)malloc(sizeof(struct stack));
-    sp->size=10;
-    sp->top=-1;
-    sp->arr=(int*)malloc(sp->size*sizeof(int));
+
+int main() {
+    struct Node* top = NULL;
+    top = push(top, 78);
+    top = push(top, 7);
+    top = push(top, 6);
+    top = push(top, 11);
+    top = push(top, 19);
     
-    printf("Stack has been created successfully");
+    int poppedElement;
+    top = pop(top, &poppedElement);
+    printf("Popped element: %d\n", poppedElement);
+    
+    linkedlistTraversal(top);
     return 0;
 }
